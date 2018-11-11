@@ -20,7 +20,7 @@ res.send('Express is running');
 app.get('/api/json', function (req, res) {
 res.json({
 status: 'success', 
-message: 'REST API is working'
+message: 'REST API is working'  
 });
 });
 
