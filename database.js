@@ -88,6 +88,7 @@ function updateProduct(req, res) {
 
 
 //USERS
+//all users
 function getAllUsers(req, res) {
     db.any(`select * from users `)
         .then(function (data) {
@@ -103,6 +104,7 @@ function getAllUsers(req, res) {
         });
 }
 
+//get user by id
 function getAllUsersByID(req, res) {
     db.any(`select * from users where id = ${req.params.id}`)
         .then(function (data) {
@@ -119,6 +121,51 @@ function getAllUsersByID(req, res) {
         });
 }
 
+//insert user
+function insertUsers(req, res) {
+    db.any('insert into users(email, password, create_at)' +
+        'values(${email}, ${password}, ${create_at})', req.body)
+        .then(function (data) {
+            res.status(200)
+                .json({
+                    status: 'success',
+                    message: 'Inserted one user'
+                });
+        })
+        .catch(function (error) {
+            console.log('ERROR:', error)
+        });
+}
+
+function updateUsers(req, res) {
+    db.none('update users set email = ${email},password = ${password} , create_at = ${create_at} where id = ' + req.params.id,
+        req.body)
+        .then(function (data) {
+            res.status(200)
+                .json({
+                    status: 'success',
+                    message: 'Update one users'
+                });
+        })
+        .catch(function (error) {
+            console.log('ERROR:', error)
+        });
+}
+function deleteUsers(req, res) {
+    db.none('delete from users where id =' + req.params.id,
+        req.body)
+        .then(function (data) {
+            res.status(200)
+                .json({
+                    status: 'success',
+                    message: 'Deleted one user'
+                });
+        })
+        .catch(function (error) {
+            console.log('ERROR:', error)
+        })
+}
+
 
 module.exports = {
     getAllProducts,
@@ -128,5 +175,8 @@ module.exports = {
     updateProduct,
     getAllUsers,
     getAllUsersByID,
+    insertUsers,
+    updateUsers,
+    deleteUsers
 
 };
