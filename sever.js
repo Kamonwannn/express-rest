@@ -1,21 +1,25 @@
 var express = require('express');
-var app = express();
-var db = require('./database');
 var home = require('home')
+var app = express();
+var db = require('./database')
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-extended: true
-
+    extended: true
 }));
+app.use(home())
+// index page
+app.get('/', function (req, res) {
+    res.send('<h1 align="center" style="color:red;padding:20%;">SERVER IS RUNNING!!!<h1>');
+    });
 
 //add routing
 // index page
 //use function res
-app.use(home())
-app.get('/', function (req, res) {
-res.send('Express is running ProjectS');
-});
+// app.use(home())
+// app.get('/', function (req, res) {
+// res.send('Express is running ProjectS');
+// });
 
 
 // app.get('/api/json', function (req, res) {
@@ -49,7 +53,7 @@ app.delete('/api/users/:id', db.deleteUsers);
 
 
 //port server
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 3000;
 app.listen(port, function () {
 console.log('App is running on http://localhost:' + port);
 });
