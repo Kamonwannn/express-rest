@@ -103,6 +103,22 @@ function getAllUsers(req, res) {
         });
 }
 
+function getAllUsersByID(req, res) {
+    db.any(`select * from users where id = ${req.params.id}`)
+        .then(function (data) {
+            res.status(200)
+                .json({
+                    status: 'success',
+                    data: data,
+                    message: 'Retrieved users id:' +
+                        req.params.id
+                });
+        })
+        .catch(function (error) {
+            console.log('ERROR:', error)
+        });
+}
+
 
 module.exports = {
     getAllProducts,
@@ -111,5 +127,6 @@ module.exports = {
     deleteProduct,
     updateProduct,
     getAllUsers,
+    getAllUsersByID,
 
 };
