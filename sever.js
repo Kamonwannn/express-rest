@@ -14,20 +14,19 @@ extended: true
 //use function res
 app.use(home())
 app.get('/', function (req, res) {
-res.send('Express is running');
+res.send('Express is running ProjectS');
 });
 
 
-app.get('/api/json', function (req, res) {
-res.json({
-status: 'success', 
-message: 'REST API is working'  
-});
-});
+// app.get('/api/json', function (req, res) {
+// res.json({
+// status: 'success', 
+// message: 'REST API is working'  
+// });
+// });
 
 app.get('/api/products/',db.getAllProducts);
 
-//สร้างเราติ่งใหม่
 app.get('/api/products/:id', db.getProductByID);
 
 app.post('/api/products', db.insertProducts);
