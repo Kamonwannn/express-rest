@@ -1,6 +1,7 @@
 const pgp = require('pg-promise')();
 var db = pgp('postgres://lsfslknfpvrgaz:6efc58bd43c601443f09c95dca57f51278a998fe274e1c9d69f054030fcf87f1@ec2-54-204-14-96.compute-1.amazonaws.com:5432/dcv9p2da8fcels?ssl=true');
 
+//PRODUCTS
 //all products
 function getAllProducts(req, res) {
     db.any('select * from products')
@@ -20,9 +21,9 @@ function getAllProducts(req, res) {
         })
     }
 
-//product id
+//get product id
 function getProductByID(req, res) {
-    db.any('select * from products where id =' + req.params.id)
+    db.any(`select * from products where id = ${req.params.id}`)
         .then(function (data) {
             res.status(200)
                 .json({
@@ -33,10 +34,7 @@ function getProductByID(req, res) {
                 });
         })
         .catch(function (error) {
-            res.status(500).json({
-                status: 'failed',
-                message: 'REST API is NOT working'
-            });
+            console.log('ERROR:', error)
         })
 }
 
@@ -58,49 +56,40 @@ function insertProduct(req, res) {
 }
 //delete product
 function deleteProduct(req, res) {
-    db.any('DELETE FROM products where id =' + req.params.id)
-        .then(function (data) {
-            res.status(200)
-                .json({
-                    status: 'success',
-                    data: data,
-                    message: 'Retrieved products id:' +
-                        req.params.id
-                });
-        })
-        .catch(function (error) {
-            res.status(500).json({
-                status: 'failed',
-                message: 'REST API is NOT working'
+    db.none('delete from products where id =' + req.params.id,
+    req.body)
+    .then(function (data) {
+        res.status(200)
+            .json({
+                status: 'success',
+                message: 'Deleted one product'
             });
-        })
+    })
+    .catch(function (error) {
+        console.log('ERROR:', error)
+    })
 }
 
 //update product
 function updateProduct(req, res) {
-    db.any(`update products set title = '${title}',price=${price} where id = ${id}`)
+    db.none('update products set title = ${title},price = ${price} , create_at = ${create_at} , tag = ${tag}  where id = ' + req.params.id,
+        req.body)
         .then(function (data) {
             res.status(200)
                 .json({
                     status: 'success',
-                    data: data,
-                    message: 'Retrieved products id:' +
-                        req.params.id
+                    message: 'Update one product'
                 });
         })
         .catch(function (error) {
-            res.status(500).json({
-                status: 'failed',
-                message: 'REST API is NOT working'
-            });
-        })
+            console.log('ERROR:', error)
+        });
 }
-
 
 module.exports = {
     getAllProducts,
     getProductByID,
     insertProduct,
-    updateProduct,
-    deleteProduct
+    deleteProduct,
+    updateProduct
 };
