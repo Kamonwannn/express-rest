@@ -36,7 +36,7 @@ app.put('/api/products/:id', db.updateProduct);
 app.delete('/api/products/:id', db.deleteProduct);
 
 // Users
-app.get('/api/users', db.getAllUser);
+app.get('/api/users', db.getAllUsers);
 
 app.get('/api/users/:id', db.getAllUsersByID);
 

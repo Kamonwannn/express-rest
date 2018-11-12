@@ -86,10 +86,30 @@ function updateProduct(req, res) {
         });
 }
 
+
+//USERS
+function getAllUsers(req, res) {
+    db.any(`select * from users `)
+        .then(function (data) {
+            res.status(200)
+                .json({
+                    status: 'success',
+                    data: data,
+                    message: 'Retrieved all users'
+                });
+        })
+        .catch(function (error) {
+            console.log('ERROR:', error)
+        });
+}
+
+
 module.exports = {
     getAllProducts,
     getProductByID,
     insertProduct,
     deleteProduct,
-    updateProduct
+    updateProduct,
+    getAllUsers,
+
 };
