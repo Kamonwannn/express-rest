@@ -1,5 +1,4 @@
 var express = require('express');
-// var home = require('home')
 var app = express();
 var db = require('./database')
 var bodyParser = require('body-parser');
@@ -7,10 +6,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
-// app.use(home())
-// index page
+
 app.get('/', function (req, res) {
-    res.send('<h1 align="center" style="color:red;padding:20%;">SERVER IS RUNNING!!!<h1>');
+    res.send('<h1 align="center" style="color:blue;padding:30%;">WELCOME <h1>');
     });
 
 //add routing
