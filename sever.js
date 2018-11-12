@@ -24,8 +24,8 @@ res.send('Express is running ProjectS');
 // message: 'REST API is working'  
 // });
 // });
-
-app.get('/api/products/',db.getAllProducts);
+///Product
+app.get('/api/products',db.getAllProducts);
 
 app.get('/api/products/:id', db.getProductByID);
 
@@ -34,6 +34,19 @@ app.post('/api/products', db.insertProducts);
 app.put('/api/products/:id', db.updateProduct);
 
 app.delete('/api/products/:id', db.deleteProduct);
+
+// Users
+app.get('/api/users', db.getAllUser);
+
+app.get('/api/users/:id', db.getAllUsersByID);
+
+app.post('/api/users', db.insertUsers);
+
+app.put('/api/users/:id', db.updateUsers);
+
+app.delete('/api/users/:id', db.deleteUsers);
+
+
 
 //port server
 var port = process.env.PORT || 8080;
