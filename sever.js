@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var db = require('./database');
-
+var home = require('home')
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -12,6 +12,7 @@ extended: true
 //add routing
 // index page
 //use function res
+app.use(home())
 app.get('/', function (req, res) {
 res.send('Express is running');
 });
