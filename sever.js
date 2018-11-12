@@ -1,5 +1,5 @@
 var express = require('express');
-var home = require('home')
+// var home = require('home')
 var app = express();
 var db = require('./database')
 var bodyParser = require('body-parser');
@@ -7,7 +7,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
-app.use(home())
+// app.use(home())
 // index page
 app.get('/', function (req, res) {
     res.send('<h1 align="center" style="color:red;padding:20%;">SERVER IS RUNNING!!!<h1>');
@@ -28,12 +28,12 @@ app.get('/', function (req, res) {
 // message: 'REST API is working'  
 // });
 // });
-///Product
+//Product
 app.get('/api/products',db.getAllProducts);
 
 app.get('/api/products/:id', db.getProductByID);
 
-app.post('/api/products', db.insertProducts);
+app.post('/api/products/new', db.insertProducts);
 
 app.put('/api/products/:id', db.updateProduct);
 
@@ -53,7 +53,7 @@ app.delete('/api/users/:id', db.deleteUsers);
 
 
 //port server
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 8080;
 app.listen(port, function () {
 console.log('App is running on http://localhost:' + port);
 });

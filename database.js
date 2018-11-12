@@ -39,7 +39,7 @@ function getProductByID(req, res) {
 }
 
 //insert product
-function insertProduct(req, res) {
+function insertProducts(req, res) {
     db.none('insert into products(id, title, price, created_at, tags)' +
         'values(${id}, ${title}, ${price}, ${created_at}, ${tags})',
         req.body)
@@ -170,7 +170,7 @@ function deleteUsers(req, res) {
 module.exports = {
     getAllProducts,
     getProductByID,
-    insertProduct,
+    insertProducts,
     deleteProduct,
     updateProduct,
     getAllUsers,
